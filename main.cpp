@@ -1,7 +1,10 @@
 #include<iostream> //c++11
+#include <iomanip>
 #include<fstream>
 #include<ctime>
 #include "sortings.t.hpp"
+
+#include<windows.h> //for windows only
 
 using std::ifstream;
 using std::ofstream;
@@ -78,7 +81,7 @@ ofstream& quickSortFile, ofstream& introSortFile, C comp, float sortedPart=0, bo
     
     copy_array(array0, array, size);
     t=clock();
-    mergeSort1(array, size, comp);
+    //mergeSort1(array, size, comp);
     t=clock()-t;
     if(checkArray(array,size,comp))
         mergeSortFile<<(double)t/CLOCKS_PER_SEC<<',';
@@ -96,7 +99,7 @@ ofstream& quickSortFile, ofstream& introSortFile, C comp, float sortedPart=0, bo
 
     copy_array(array0, array, size);
     t=clock();
-    introSort(array, size, comp);
+    //introSort(array, size, comp);
     t=clock()-t;
     if(checkArray(array,size,comp))
         introSortFile<<(double)t/CLOCKS_PER_SEC<<',';
@@ -110,27 +113,27 @@ int main() {
     ascending<int> comp;
     testSortFromFile<int>("50000/1.txt",50000,comp,1,1);
     
-    int arraysSizes=5;
-    int sizes[]={10000, 50000, 100000, 500000, 1000000};
+    int arraysSizes=4;
+    int sizes[]={10000, 50000, 100000, 500000/*, 1000000*/};
     int arraysNumber=100;
-    int nMethods=8;
-    float sortedMethods[]={0,.25,.5,.75,.95,.99,.997,1};
-    bool reversedMethods[]={0,0, 0, 0, 0, 0, 0, 1};
+    int nMethods=1;//8;
+    float sortedMethods[]={/*0,.25,.5,.75,.95,.99,.997,*/1};
+    bool reversedMethods[]={/*0,0, 0, 0, 0, 0, 0, */1};
     for(int n=0;n<nMethods;n++){
-        ofstream mergeSortFile ("times/mergeSortTimes"+to_string(sortedMethods[n])+".csv");
+        //ofstream mergeSortFile ("times/mergeSortTimes"+to_string(sortedMethods[n])+".csv");
+        ofstream mergeSortFile ("placeholder");
         ofstream quickSortFile ("times/quickSortTimes"+to_string(sortedMethods[n])+".csv");
-        ofstream introSortFile ("times/introSortTimes"+to_string(sortedMethods[n])+".csv");
+        //ofstream introSortFile ("times/introSortTimes"+to_string(sortedMethods[n])+".csv");
+        ofstream introSortFile ("placeholder2");
         float sortedPart=sortedMethods[n];
         bool reversed=reversedMethods[n];
         for(int i=0;i<arraysSizes;i++) {
             int size=sizes[i];
-            //int array0[size];
-            //int array[size];
             mergeSortFile<<size<<'\n';
             quickSortFile<<size<<'\n';
             introSortFile<<size<<'\n';
             for(int j=0;j<arraysNumber;j++) {
-                string filename=to_string(size)+"/"+to_string(i)+".txt";
+                string filename=to_string(size)+"/"+to_string(j)+".txt";
                 testSortTime<int>(filename,size,mergeSortFile,quickSortFile,introSortFile,comp,\
                 sortedPart,reversed);
             }
