@@ -1,7 +1,7 @@
 #include<fstream> //c++11
 #include<ctime>
 
-const int elem_num=1000000; //specify array size
+const int elem_num=50000; //specify array size
 //create 100 arrays and save to file
 int main() {
     srand (time(NULL));

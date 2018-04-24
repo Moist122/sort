@@ -1,12 +1,10 @@
 #include"heap.hh"
-#include<iostream> /////////////////
 template <typename Value, typename Comparator>
 Heap<Value,Comparator>::Heap(const Comparator& c, Value* array, int n)
     :CompleteTree<Value>(array,n), comp(c) {
         int depth=floor(std::log2(this->size()));
         for(int i=pow(2,depth)-1;i>0;i--)
             downHeap(i);
-        //for(int i=1;i<=this->size();i++) std::cout<<this->value(i)<<std::endl;
     }
 
 template <typename Value, typename Comparator>
@@ -22,12 +20,8 @@ template <typename Value, typename Comparator>
 Value Heap<Value,Comparator>::removeMin() {
     Value v = this->value(this->root());
     this->value(this->root()) = this->value(this->last());
-    //std::cout<<std::endl;
-    //for(int i=1;i<=this->size();i++) std::cout<<this->value(i)<<std::endl;
     this->removeLast();
     downHeap(this->root());
-    //std::cout<<std::endl;
-    //for(int i=1;i<=this->size();i++) std::cout<<this->value(i)<<std::endl;
     return v;
 }
 

@@ -1,3 +1,4 @@
+//comparator for ascending  order
 template <typename V>
 class ascending {
 public:
@@ -7,6 +8,7 @@ public:
     }
 };
 
+//comparator for descending order
 template <typename V>
 class descending {
 public:
